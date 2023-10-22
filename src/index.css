@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.cart_item::-webkit-scrollbar , .list::-webkit-scrollbar { 
+    width: 3px; 
+} 
+  
+.cart_item::-webkit-scrollbar-thumb, .list::-webkit-scrollbar-thumb {
+    background-color: skyblue; 
+} 
