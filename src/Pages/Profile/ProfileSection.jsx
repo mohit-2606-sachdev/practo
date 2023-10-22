@@ -51,10 +51,7 @@ const ProfileSection = () => {
     try {
       const response = DoctorsData;
       let value = response.filter((ele) => {
-        if (ele._id === id) {
-          return ele;
-        }
-        return;
+        return ele._id === id;
       });
 
       setData(value[0]);
@@ -69,7 +66,7 @@ const ProfileSection = () => {
         <div className="w-8/12">
           <div className="flex bg-white p-4">
             <div className="">
-              {data.gender == "Male" ? (
+              {data.gender === "Male" ? (
                 <img
                   src="https://thumbs.dreamstime.com/z/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg?w=768"
                   alt="Male"

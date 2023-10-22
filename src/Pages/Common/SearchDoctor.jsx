@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { searchDoctor } from "../../Features/Search/Search";
@@ -9,7 +9,6 @@ const SearchDoctor = () => {
     "https://www.practostatic.com/subscriptions/images/plus-tag.png";
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const searchedValue = useSelector((state) => state.Search.doctor);
 
   return (
     <div className="flex justify-between items-center w-4/5 mx-auto py-4">

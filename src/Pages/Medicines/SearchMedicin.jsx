@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { searchMedi } from "../../Features/Search/Search";

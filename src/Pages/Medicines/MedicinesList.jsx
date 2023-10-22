@@ -75,7 +75,7 @@ const MedicinesList = () => {
           </div>
         );
       })
-    : category == "All"
+    : category === "All"
     ? medicines.map((ele, index) => {
         return (
           <div key={index}>
@@ -105,7 +105,7 @@ const MedicinesList = () => {
             (
             {searchValue
               ? showMedi.length
-              : category == "All"
+              : category === "All"
               ? medicines.length
               : showMedi.length}
             )
