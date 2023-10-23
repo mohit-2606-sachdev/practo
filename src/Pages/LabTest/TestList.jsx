@@ -16,10 +16,6 @@ const TestList = () => {
   const total = useSelector((state) => state.AddToCartTest.total);
 
   useEffect(() => {
-    handleCartData();
-  }, [testCartList]);
-
-  const handleCartData = () => {
     let data = testCartList.map((ele, index) => {
       return (
         <div key={index}>
@@ -45,7 +41,7 @@ const TestList = () => {
     });
 
     setCartData(data);
-  };
+  }, [testCartList]);
 
   const filterList = [
     "All",
@@ -59,23 +55,19 @@ const TestList = () => {
   ];
 
   useEffect(() => {
-    searchedData();
-  }, [searchValue]);
-
-  const searchedData = () => {
     let filteredTest = tests.filter((ele) => {
-      if (ele.testName.toLowerCase().includes(searchValue.toLowerCase())) {
-        return ele;
-      }
+      return ele.testName.toLowerCase().includes(searchValue.toLowerCase());
     });
     setShowTest(filteredTest);
-  };
+  }, [searchValue, tests]);
 
   const showFilterList = filterList.map((ele) => {
     return (
       <li
         key={ele}
-        className={`cursor-pointer ${ele == category ? "text-blue-400" : null}`}
+        className={`cursor-pointer ${
+          ele === category ? "text-blue-400" : null
+        }`}
         onClick={() => setCategory(ele)}
       >
         {ele}
@@ -88,8 +80,11 @@ const TestList = () => {
   }, []);
 
   useEffect(() => {
-    getFilterData();
-  }, [category]);
+    let filteredTest = tests.filter((ele) => {
+      return ele.category === category;
+    });
+    setShowTest(filteredTest);
+  }, [category, tests]);
 
   const getTestData = () => {
     try {
@@ -100,13 +95,6 @@ const TestList = () => {
     }
   };
 
-  const getFilterData = () => {
-    let filteredTest = tests.filter((ele) => {
-      return ele.category === category;
-    });
-    setShowTest(filteredTest);
-  };
-
   const showCards = searchValue
     ? showTest.map((ele, index) => {
         return (
@@ -115,7 +103,7 @@ const TestList = () => {
           </div>
         );
       })
-    : category == "All"
+    : category === "All"
     ? tests.map((ele, index) => {
         return (
           <div key={index}>
@@ -145,7 +133,7 @@ const TestList = () => {
             (
             {searchValue
               ? showTest.length
-              : category == "All"
+              : category === "All"
               ? tests.length
               : showTest.length}
             )

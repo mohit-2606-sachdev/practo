@@ -1,6 +1,6 @@
 import React from "react";
 import { BiSearch } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { searchDoctor } from "../../Features/Search/Search";
 import { useNavigate } from "react-router-dom";
 

@@ -11,16 +11,12 @@ function Counter({ item }) {
   const cartItems = useSelector((state) => state.AddToCartMedi.cart);
   const dispatch = useDispatch();
 
-  const updateCountAndAdd = () => {
+  useEffect(() => {
     const foundItem = cartItems.find((ele) => ele.name === item.name);
     if (foundItem) {
       setCount(foundItem.quantity);
       setAdd(false);
     }
-  };
-
-  useEffect(() => {
-    updateCountAndAdd();
   }, [cartItems, item]);
 
   const countplus = () => {

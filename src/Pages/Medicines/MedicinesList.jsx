@@ -23,17 +23,11 @@ const MedicinesList = () => {
   ];
 
   useEffect(() => {
-    searchedData();
-  }, [searchValue]);
-
-  const searchedData = () => {
     let filteredMedi = medicines.filter((ele) => {
-      if (ele.name.toLowerCase().includes(searchValue.toLowerCase())) {
-        return ele;
-      }
+      return ele.name.toLowerCase().includes(searchValue.toLowerCase());
     });
     setShowMedi(filteredMedi);
-  };
+  }, [searchValue, medicines]);
 
   const showFilterList = filterList.map((ele) => {
     return (
@@ -44,28 +38,20 @@ const MedicinesList = () => {
   });
 
   useEffect(() => {
-    getMedicineData();
-  }, []);
-
-  useEffect(() => {
-    getFilterData();
-  }, [category]);
-
-  const getMedicineData = async () => {
     try {
-      const response = await MedicineData;
+      const response = MedicineData;
       setMedicines(response);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
-  const getFilterData = () => {
+  useEffect(() => {
     let filteredMedi = medicines.filter((ele) => {
       return ele.category === category;
     });
     setShowMedi(filteredMedi);
-  };
+  }, [category, medicines]);
 
   const showCards = searchValue
     ? showMedi.map((ele, index) => {

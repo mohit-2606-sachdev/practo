@@ -19,7 +19,7 @@ const DoctorsList = () => {
     if (value) {
       setCategory(value);
     }
-  }, []);
+  }, [location.state]);
 
   const filterList = [
     "All",
@@ -39,7 +39,7 @@ const DoctorsList = () => {
       <span
         key={ele}
         className={`cursor-pointer ${
-          ele == category ? "text-blue-500" : null
+          ele === category ? "text-blue-500" : null
         } font-semibold`}
         onClick={() => setCategory(ele)}
       >
@@ -49,44 +49,30 @@ const DoctorsList = () => {
   });
 
   useEffect(() => {
-    searchedData();
-    handleLocation(showDoc);
-  }, [searchValue]);
-
-  const searchedData = () => {
     let filteredDoc = doctors.filter((ele) => {
-      if (ele.name.toLowerCase().includes(searchValue.toLowerCase())) {
-        return ele;
-      }
+      return ele.name.toLowerCase().includes(searchValue.toLowerCase());
     });
     setShowDoc(filteredDoc);
-  };
+    handleLocation(filteredDoc);
+  }, [searchValue, doctors]);
 
   useEffect(() => {
-    getDoctorData();
-    handleLocation(doctors);
-  }, []);
-
-  useEffect(() => {
-    getFilterData();
-    handleLocation(showDoc);
-  }, [category]);
-
-  const getDoctorData = () => {
     try {
       const response = DoctorsData;
       setDoctors(response);
+      handleLocation(response);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
-  const getFilterData = () => {
+  useEffect(() => {
     let filteredDoc = doctors.filter((ele) => {
       return ele.department === category;
     });
     setShowDoc(filteredDoc);
-  };
+    handleLocation(filteredDoc);
+  }, [category, doctors]);
 
   const showCards = searchValue
     ? showDoc.map((ele, index) => {
@@ -96,7 +82,7 @@ const DoctorsList = () => {
           </div>
         );
       })
-    : category == "All"
+    : category === "All"
     ? doctors.map((ele, index) => {
         return (
           <div key={index}>
@@ -113,17 +99,14 @@ const DoctorsList = () => {
       });
 
   const handleLocation = (ele) => {
-    setLocationArr([]);
-    ele.map((item) => {
+    let value = ele.map((item) => {
       let obj = {
         lat: item.location.coordinates[0],
         lng: item.location.coordinates[1],
       };
-
-      setLocationArr((pre) => {
-        return [...pre, obj];
-      });
+      return obj;
     });
+    setLocationArr(value);
   };
 
   return (

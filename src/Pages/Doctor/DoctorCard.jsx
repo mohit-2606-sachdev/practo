@@ -6,7 +6,7 @@ const DoctorCard = ({ ele }) => {
   return (
     <div className="flex items-center border-b py-5 mx-5">
       <div>
-        {ele.gender == "Male" ? (
+        {ele.gender === "Male" ? (
           <img
             src="https://thumbs.dreamstime.com/z/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg?w=768"
             alt="Male"
